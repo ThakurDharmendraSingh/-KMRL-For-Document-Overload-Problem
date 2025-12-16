@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - KMRL Document Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Login Page Specific Styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 1rem;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .login-header p {
+            color: #64748b;
+            margin-bottom: 0;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form .form-control {
+            height: 3rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .login-form select.form-control {
+            padding-right: 3rem;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .login-footer a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Demo Section Styles */
+        .demo-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .demo-header h4 {
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .demo-header p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-buttons .btn {
+            flex: 1;
+            min-width: 120px;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+        }
+
+        /* Two Factor Modal (Hidden) */
+        #twoFactorModal {
+            display: none !important;
+        }
+
+        /* OTP Input Styles */
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .otp-input {
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .otp-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .otp-input.filled {
+            background-color: #eff6ff;
+            border-color: #2563eb;
+        }
+
+        .resend-section {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .resend-timer {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .login-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .demo-buttons {
+                flex-direction: column;
+            }
+
+            .demo-buttons .btn {
+                width: 100%;
+            }
+
+            .otp-input {
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Login Header -->
+            <div class="login-header">
+                <h1><i class="fas fa-file-alt text-primary"></i> KMRL</h1>
+                <p>Document Management System</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                    <span id="emailError" class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password"
+                            required>
+                        <span class="input-group-append" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <span id="passwordError" class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="role" class="form-label">Role</label>
+                    <select id="role" class="form-control" required>
+                        <option value="">Select your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="manager">Manager</option>
+                        <option value="staff">Staff</option>
+                    </select>
+                    <span id="roleError" class="form-error"></span>
+                </div>
+
+                <button type="submit" id="loginBtn" class="btn btn-primary btn-lg">
+                    <span class="btn-text">Sign In</span>
+                    <div class="spinner d-none"></div>
+                </button>
+            </form>
+
+            <!-- Demo Credentials Section -->
+            <div class="demo-section">
+                <div class="demo-header">
+                    <h4><i class="fas fa-user-check"></i> Quick Demo Login</h4>
+                    <p>Click any button below to auto-fill credentials for testing</p>
+                </div>
+                <div class="demo-buttons">
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="fillDemoCredentials('admin')">
+                        <i class="fas fa-user-shield"></i> Admin Login
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="fillDemoCredentials('manager')">
+                        <i class="fas fa-user-tie"></i> Manager Login
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="fillDemoCredentials('staff')">
+                        <i class="fas fa-user"></i> Staff Login
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login Footer -->
+            <div class="login-footer">
+                <p>
+                    <a href="#" id="forgotPassword">Forgot your password?</a>
+                </p>
+                <p class="text-muted" style="font-size: 0.9rem;">
+                    <a href="index.html">← Back to Home</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two Factor Authentication Modal (Hidden) -->
+    <div id="twoFactorModal" class="modal" style="display: none !important;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Two-Factor Authentication</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center text-muted">
+                        Please enter the 6-digit verification code sent to your registered device.
+                    </p>
+
+                    <form id="twoFactorForm">
+                        <div class="otp-container">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                        </div>
+
+                        <span id="otpError" class="form-error text-center d-block"></span>
+
+                        <button type="submit" id="verifyBtn" class="btn btn-primary btn-lg">
+                            <span class="btn-text">Verify & Continue</span>
+                            <div class="spinner d-none"></div>
+                        </button>
+                    </form>
+
+                    <div class="resend-section">
+                        <button type="button" id="resendCode" class="btn btn-link">
+                            Resend verification code
+                        </button>
+                        <div id="resendTimer" class="resend-timer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Reset Password</h4>
+                    <button type="button" class="close" id="closeForgotModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">
+                        Enter your email address and we'll send you a link to reset your password.
+                    </p>
+
+                    <form id="forgotPasswordForm">
+                        <div class="form-group">
+                            <label for="resetEmail" class="form-label">Email Address</label>
+                            <input type="email" id="resetEmail" class="form-control"
+                                placeholder="Enter your email address" required>
+                            <span id="resetEmailError" class="form-error"></span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="cancelReset" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" id="sendResetBtn" class="btn btn-primary">
+                                <span class="btn-text">Send Reset Link</span>
+                                <div class="spinner d-none"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="successNotification" class="notification notification-success">
+        <i class="fas fa-check-circle"></i>
+        <span class="notification-text">Success message</span>
+    </div>
+
+    <!-- Error Notification -->
+    <div id="errorNotification" class="notification notification-error">
+        <i class="fas fa-exclamation-circle"></i>
+        <span class="notification-text">Error message</span>
+    </div>
+
+    <!-- Login JavaScript -->
+    <script src="js/login.js"></script>
+
+    <script>
+        // Global function for demo credentials (for easy testing)
+        function fillDemoCredentials(role = 'admin') {
+            const credentials = {
+                admin: { email: 'admin@kmrl.com', password: 'admin123' },
+                manager: { email: 'manager@kmrl.com', password: 'manager123' },
+                staff: { email: 'staff@kmrl.com', password: 'staff123' }
+            };
+
+            const cred = credentials[role];
+            if (cred) {
+                document.getElementById('email').value = cred.email;
+                document.getElementById('password').value = cred.password;
+                document.getElementById('role').value = role;
+
+                // Clear any previous errors
+                document.getElementById('emailError').textContent = '';
+                document.getElementById('passwordError').textContent = '';
+                document.getElementById('roleError').textContent = '';
+            }
+        }
+
+        // Make function globally available
+        window.fillDemoCredentials = fillDemoCredentials;
+    </script>
+</body>
+
+</html>

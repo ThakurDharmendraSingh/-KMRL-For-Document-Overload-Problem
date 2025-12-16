@@ -1,0 +1,78 @@
+Document Source: SharePoint Online
+Site: KMRL Engineering Portal
+Library: Project Documents
+Folder: /Metro Extension Project/Phase 2/
+
+Document Properties:
+Title: Metro Extension Phase 2 Design Specifications
+Author: Design Team Lead
+Department: Engineering
+Created: 2024-01-10
+Modified: 2024-01-15
+Version: 2.3
+Classification: Restricted
+
+METRO EXTENSION PHASE 2 - DESIGN SPECIFICATIONS
+
+Project Overview:
+================
+This document outlines the detailed design specifications for the Metro Extension Phase 2 project, covering the route from Petta to Info Park.
+
+Route Details:
+- Total Length: 11.2 km
+- Number of Stations: 8
+- Estimated Ridership: 45,000 passengers/day
+- Project Timeline: 36 months
+
+Technical Specifications:
+========================
+
+Track Design:
+- Gauge: 1435 mm (Standard Gauge)
+- Rail Type: 60 kg/m UIC 60
+- Sleeper Type: Pre-stressed concrete
+- Ballast: Granite, 300mm depth
+
+Station Design:
+- Platform Length: 140m
+- Platform Width: 3.5m (minimum)
+- Platform Height: 1050mm above rail level
+- Accessibility: Full compliance with RPWD Act
+
+Electrical Systems:
+- Traction Power: 25 kV AC, 50 Hz
+- Third Rail System: 750V DC
+- Backup Power: Diesel generators at each station
+
+Signaling & Telecom:
+- CBTC (Communication Based Train Control)
+- Automatic Train Protection (ATP)
+- Passenger Information System (PIS)
+- Public Address System
+
+Environmental Considerations:
+============================
+- Noise barriers at residential areas
+- Vibration control measures
+- Green building certification for stations
+- Solar panels on station rooftops
+
+Safety Features:
+===============
+- Platform screen doors at all stations
+- CCTV surveillance system
+- Emergency communication systems
+- Fire detection and suppression systems
+
+Quality Standards:
+=================
+- IS 456-2000 for concrete structures
+- IS 2062 for structural steel
+- IRS specifications for railway components
+- International safety standards compliance
+
+---
+Document extracted from SharePoint connector
+Sync Date: 2024-01-18 09:15:00
+Connector Version: SharePoint Integration v3.2
+Original Path: /sites/KMRL/Engineering/Metro_Extension_Phase2_Design_v2.3.docx

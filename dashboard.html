@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KMRL Document Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Dashboard Specific Styles */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8fafc;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #1e293b 0%, #334155 100%);
+            color: white;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #374151;
+            text-align: center;
+        }
+
+        .sidebar-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 1.25rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .sidebar-header h3 {
+            opacity: 0;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-link:hover {
+            background-color: #374151;
+            color: white;
+        }
+
+        .nav-link.active {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 1rem;
+            text-align: center;
+        }
+
+        .nav-link span {
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .nav-link span {
+            opacity: 0;
+        }
+
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* User Info */
+        .user-info {
+            padding: 1rem;
+            border-top: 1px solid #374151;
+            margin-top: auto;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-details h4 {
+            color: white;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .user-details p {
+            color: #94a3b8;
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+            overflow-x: auto;
+        }
+
+        .main-content.expanded {
+            margin-left: -210px;
+        }
+
+        /* Header */
+        .content-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-header h1 {
+            margin: 0;
+            color: #1e293b;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Widgets Grid */
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .widget {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .widget-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #374151;
+            margin: 0;
+        }
+
+        .widget-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .widget-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .widget-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .widget-trend {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .trend-up {
+            color: #059669;
+        }
+
+        .trend-down {
+            color: #dc2626;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .quick-actions h3 {
+            margin-bottom: 1.5rem;
+            color: #374151;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-card {
+            padding: 1.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            text-align: center;
+            text-decoration: none;
+            color: #374151;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1rem;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+            }
+
+            .sidebar.show {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+            }
+
+            .content-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .widgets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-file-alt"></i> KMRL</h3>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="upload.html" class="nav-link">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Upload Documents</span>
+                </a>
+                <a href="documents.html" class="nav-link">
+                    <i class="fas fa-folder"></i>
+                    <span>My Documents</span>
+                </a>
+                <a href="#" class="nav-link" id="aiSummarizerLink">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Summarizer</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="admin.html" class="nav-link admin-only">
+                    <i class="fas fa-cog"></i>
+                    <span>Admin Panel</span>
+                </a>
+            </nav>
+
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <h4 class="user-name">Loading...</h4>
+                    <p class="user-role">Loading...</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="content-header">
+                <div>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="btn btn-danger" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Widgets Grid -->
+            <div class="widgets-grid">
+                <!-- Total Documents Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Total Documents</h3>
+                        <div class="widget-icon" style="background-color: #2563eb;">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="widget-value" id="totalDocs">0</div>
+                    <div class="widget-label">Documents in system</div>
+                    <div class="widget-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>12% from last month</span>
+                    </div>
+                </div>
+
+                <!-- Recent Uploads Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Recent Uploads</h3>
+                        <div class="widget-icon" style="background-color: #059669;">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                    </div>
+                    <div class="widget-value" id="recentUploads">0</div>
+                    <div class="widget-label">This week</div>
+                    <div class="widget-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>8% from last week</span>
+                    </div>
+                </div>
+
+                <!-- Pending Approvals Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Pending Approvals</h3>
+                        <div class="widget-icon" style="background-color: #d97706;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="widget-value" id="pendingApprovals">0</div>
+                    <div class="widget-label">Awaiting review</div>
+                    <div class="widget-trend trend-down">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>5% from yesterday</span>
+                    </div>
+                </div>
+
+                <!-- Storage Used Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Storage Used</h3>
+                        <div class="widget-icon" style="background-color: #7c3aed;">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                    </div>
+                    <div class="widget-value" id="storageUsed">0</div>
+                    <div class="widget-label">GB of 100 GB</div>
+                    <div class="widget-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>3% from last month</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                <div class="actions-grid">
+                    <a href="upload.html" class="action-card">
+                        <i class="fas fa-upload"></i>
+                        <div>Upload Document</div>
+                    </a>
+                    <a href="documents.html" class="action-card">
+                        <i class="fas fa-search"></i>
+                        <div>Search Documents</div>
+                    </a>
+                    <a href="analytics.html" class="action-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div>View Analytics</div>
+                    </a>
+                    <a href="#" class="action-card" onclick="openChatbot()">
+                        <i class="fas fa-robot"></i>
+                        <div>AI Assistant</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                <div id="recentActivity">
+                    <!-- Activity items will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chatbot Component (Hidden by default) -->
+    <div id="chatbot" class="chatbot" style="display: none;">
+        <div class="chatbot-header">
+            <h4><i class="fas fa-robot"></i> AI Assistant</h4>
+            <button class="chatbot-close" onclick="closeChatbot()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot-message">
+                <i class="fas fa-robot"></i>
+                <span>Hello! I'm your AI assistant. How can I help you with document management today?</span>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/common.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

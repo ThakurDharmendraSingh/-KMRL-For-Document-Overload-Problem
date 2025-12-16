@@ -1,0 +1,65 @@
+WhatsApp Business Export
+Group: KMRL Operations Emergency Response
+Export Date: 2024-01-18 11:30:00
+Participants: Control Room, Station Manager Ernakulam, Security Team
+Connector: WhatsApp Business API Integration v1.5
+
+Chat Export - Emergency Incident Response
+==========================================
+
+[10:15 AM] Control Room Officer:
+🚨 URGENT: Platform obstruction reported at Ernakulam South Station, Platform 2
+
+[10:16 AM] Station Manager Ernakulam:
+Received. Investigating immediately. Dispatching security team.
+
+[10:17 AM] Security Team Lead:
+En route to Platform 2. ETA 2 minutes.
+
+[10:19 AM] Station Manager Ernakulam:
+Obstruction confirmed. Large cardboard box fell from maintenance area. No injuries reported. Platform partially blocked.
+
+[10:20 AM] Control Room Officer:
+Copy that. Any impact on train operations?
+
+[10:21 AM] Station Manager Ernakulam:
+Next train due in 3 minutes. Need to clear before arrival. Diverting passengers to Platform 1 temporarily.
+
+[10:22 AM] Security Team Lead:
+Obstruction cleared. Platform 2 safe for operations. Resuming normal passenger flow.
+
+[10:23 AM] Control Room Officer:
+Excellent response time. Logging incident as minor operational disruption. Duration: 8 minutes.
+
+[10:24 AM] Station Manager Ernakulam:
+Platform fully operational. No delays to scheduled services. Investigating how box fell from maintenance area.
+
+[10:25 AM] Control Room Officer:
+Please submit incident report by EOD. Include CCTV footage for review.
+
+[10:26 AM] Station Manager Ernakulam:
+Acknowledged. Will coordinate with maintenance team for safety review of storage areas.
+
+[10:30 AM] Security Team Lead:
+Incident closed. All safety protocols followed. Response time: 4 minutes from alert to resolution.
+
+Incident Summary:
+================
+- Type: Platform Obstruction
+- Location: Ernakulam South Station, Platform 2
+- Time: 10:15 AM - 10:23 AM (8 minutes duration)
+- Cause: Fallen maintenance equipment
+- Impact: Temporary passenger diversion, no service delays
+- Response Team: Station Manager, Security, Control Room
+- Resolution: Manual removal of obstruction
+
+Follow-up Actions:
+- CCTV footage review
+- Maintenance area safety audit
+- Staff briefing on equipment storage protocols
+
+---
+Extracted via WhatsApp Business API
+Processing System: KMRL Communication Hub
+Auto-classification: Emergency Response Communication
+Retention Policy: 7 years as per safety documentation requirements

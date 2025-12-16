@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "exif-js": "^2.3.0",
+    "mammoth": "^1.11.0",
+    "office-document-properties": "^1.1.0",
+    "pdfjs-dist": "^5.4.149",
+    "unpdf": "^1.3.0"
+  }
+}

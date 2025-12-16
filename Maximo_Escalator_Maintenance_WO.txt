@@ -1,0 +1,70 @@
+MAXIMO Work Order Export
+System: IBM Maximo Asset Management v7.6
+Export Date: 2024-01-18 16:45:00
+Connector: Maximo Integration API v2.0
+
+WORK ORDER: WO-ENG-2024-001523
+=====================================
+
+Work Order Details:
+- Work Order Number: WO-ENG-2024-001523
+- Description: Escalator Maintenance - Aluva Station
+- Priority: High
+- Status: Completed
+- Asset: ESC-ALV-01 (Escalator Unit 1)
+- Location: Aluva Metro Station, Concourse Level
+
+Scheduled Information:
+- Planned Start: 2024-01-15 02:00:00
+- Planned Finish: 2024-01-15 05:00:00
+- Actual Start: 2024-01-15 02:15:00
+- Actual Finish: 2024-01-15 04:30:00
+
+Work Details:
+=============
+Task: Quarterly preventive maintenance of escalator
+Work Performed:
+1. Lubrication of drive chains and gears
+2. Inspection of step chains and guide rails
+3. Testing of safety devices and emergency stops
+4. Cleaning of combplates and step surfaces
+5. Calibration of load sensors
+
+Parts Used:
+- Escalator Chain Lubricant: 2 liters
+- Step Chain Links: 4 pieces (replacement)
+- Safety Brush Strips: 2 meters
+- LED Step Lighting: 3 units
+
+Labor Hours:
+- Technician A: 2.25 hours
+- Technician B: 2.25 hours
+- Supervisor: 0.5 hours
+- Total: 5.0 hours
+
+Quality Checks:
+===============
+- All safety systems tested: PASS
+- Emergency stop functionality: PASS
+- Load capacity test: PASS (750 kg)
+- Speed verification: PASS (0.5 m/s)
+- Noise level measurement: PASS (<70 dB)
+
+Completion Notes:
+================
+Escalator maintenance completed successfully. All safety parameters within acceptable limits. Minor wear observed on step 15 - scheduled for replacement in next maintenance cycle. Escalator returned to service at 05:00 AM with no operational issues.
+
+Next Scheduled Maintenance: 2024-04-15
+
+Completed by: Maintenance Team Alpha
+Supervisor: Rajesh Kumar
+Department: Operations & Maintenance
+
+Certificate of Completion:
+All work has been completed as per KMRL maintenance standards and manufacturer specifications. Escalator is safe for passenger use.
+
+---
+Exported from Maximo Asset Management System
+Integration Point: KMRL Operations Portal
+Data Sync: Real-time via REST API
+Compliance: ISO 55000 Asset Management Standards

@@ -1,0 +1,27 @@
+Email from: john.doe@contractor.com
+To: engineering@kmrl.co.in
+Subject: Track Inspection Report - Section A12
+Date: 2024-01-18
+Attachment: Track_Inspection_A12.pdf
+
+Dear Engineering Team,
+
+Please find attached the track inspection report for Section A12 completed on January 15, 2024.
+
+Key findings:
+- Track geometry within acceptable limits
+- Minor wear detected on rail joints at KM 2.5
+- Recommended maintenance: Rail grinding at specified locations
+
+The inspection was conducted as per RDSO guidelines and all safety protocols were followed.
+
+Best regards,
+John Doe
+Senior Track Inspector
+ABC Engineering Contractors
+
+---
+This email was automatically ingested from the Email connector system.
+Source: Exchange Server
+Connector: Email Integration v2.1
+Processing Date: 2024-01-18 14:30:00
